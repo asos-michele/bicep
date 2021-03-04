@@ -236,6 +236,13 @@ param wrongIntModifier int {
 param wrongIntModifierWithDecorator int = true
 //@[42:46) [BCP027 (Error)] The parameter expects a default value of type "int" but provided value is of type "bool". |true|
 
+@metadata(any([]))
+//@[10:17) [BCP032 (Error)] The value must be a compile-time constant. |any([])|
+@allowed(any(2))
+//@[9:15) [BCP032 (Error)] The value must be a compile-time constant. |any(2)|
+param fatalErrorInIssue1713
+//@[27:27) [BCP014 (Error)] Expected a parameter type at this location. Please specify one of the following types: "array", "bool", "int", "object", "string". ||
+
 // wrong metadata schema
 param wrongMetadataSchema string {
   metadata: {
@@ -561,4 +568,5 @@ param tooManyArguments2 string
 
 // unterminated multi-line comment
 /*    
-//@[0:6) [BCP002 (Error)] The multi-line comment at this location is not terminated. Terminate it with the */ character sequence. |/*    |
+//@[0:7) [BCP002 (Error)] The multi-line comment at this location is not terminated. Terminate it with the */ character sequence. |/*    \n|
+

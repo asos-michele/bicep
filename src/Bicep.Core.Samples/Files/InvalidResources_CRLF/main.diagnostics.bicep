@@ -1305,6 +1305,8 @@ resource directRefViaSingleConditionalResourceBody 'Microsoft.Network/dnszones@2
   }
 }
 
+@batchSize()
+//@[10:12) [BCP071 (Error)] Expected 1 argument, but got 0. |()|
 resource directRefViaSingleLoopResourceBody 'Microsoft.Network/virtualNetworks@2020-06-01' = [for i in range(0, 3): {
   name: 'vnet-${i}'
   properties: {
@@ -1313,6 +1315,8 @@ resource directRefViaSingleLoopResourceBody 'Microsoft.Network/virtualNetworks@2
   }
 }]
 
+@batchSize(0)
+//@[11:12) [BCP154 (Error)] Expected a batch size of at least 1 but the specified value was "0". |0|
 resource directRefViaSingleLoopResourceBodyWithExtraDependsOn 'Microsoft.Network/virtualNetworks@2020-06-01' = [for i in range(0, 3): {
   name: 'vnet-${i}'
   properties: {
@@ -1341,6 +1345,8 @@ resource expressionsInPropertyLoopName 'Microsoft.Network/dnsZones@2018-05-01' =
 }
 
 // resource loop body that isn't an object
+@batchSize(-1)
+//@[11:13) [BCP032 (Error)] The value must be a compile-time constant. |-1|
 resource nonObjectResourceLoopBody 'Microsoft.Network/dnsZones@2018-05-01' = [for thing in []: 'test']
 //@[95:101) [BCP018 (Error)] Expected the "{" character at this location. |'test'|
 resource nonObjectResourceLoopBody2 'Microsoft.Network/dnsZones@2018-05-01' = [for thing in []: environment()]
@@ -1376,3 +1382,4 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
     }]
   }
 }
+

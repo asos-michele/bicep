@@ -133,6 +133,10 @@ param wrongIntModifier int {
 @metadata('wrong')
 param wrongIntModifierWithDecorator int = true
 
+@metadata(any([]))
+@allowed(any(2))
+param fatalErrorInIssue1713
+
 // wrong metadata schema
 param wrongMetadataSchema string {
   metadata: {
@@ -389,3 +393,4 @@ param tooManyArguments2 string
 
 // unterminated multi-line comment
 /*    
+
